@@ -2,7 +2,7 @@
 
 ## for The Odin Project
 
-------------------------
+---
 
 This was completed as part of the Odin Project Foundations course as an exercise in basic programming principles using JavaScript.
 
@@ -15,3 +15,12 @@ This was completed as part of the Odin Project Foundations course as an exercise
 - GUI
 - Tracking historical results
 - Smarter AI that learns from user patterns(?)
+
+---
+
+## Adding GUI using Javascript
+starting Jan 19th, 2020
+
+In this update, instead of running the game in the console, we will had a GUI using Javascript to allow the user to play the game in the browser.
+
+This is part of the **DOM Manipulation** lesson in the Odin Project Foundations course.
