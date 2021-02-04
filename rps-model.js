@@ -1,19 +1,23 @@
 /* Enums */
-const GAME_STATE = {"Dormant": 0, "Started": 1};
-export const ROUND_OUTCOME = {"Draw": "Draw", "Win": "Win", "Lose": "Lose"};
+const GAME_STATE = {"Dormant": 1, "Started": 2};
+const END_CONDITION = {
+    "BestOf": {asString: "Best of"},
+    "FirstTo": {asString: "First to"}
+};
+const ROUND_OUTCOME = {"Draw": "Draw", "Win": "Win", "Lose": "Lose"};
 
 
 /* Public Properties */
-export let numRounds;
-export let currentRound = 0;
+export let currentRound;
 export let gameState;
 export let score = {"playerScore": 0, "computerScore": 0};
 
 /* Private Properties */
-
+let endCondition;
+let endpoint;
 
 /* Public Core Methods */
-export function processInput (playerInput) {
+export function playRoundWithInput (playerInput) {
     let computerInput = getComputerInput();
     console.log(`${playerInput} vs. ${computerInput}`);
 
@@ -37,7 +41,8 @@ export function processInput (playerInput) {
         }
     }
 
-    // Declare result of round
+    currentRound += 1;
+
     updateScore(result);
     return result;
 }
@@ -52,20 +57,32 @@ export function isStarted () {
     return gameState === GAME_STATE.Started;
 }
 
-export function start (gameLengthInRounds = 5) {
-    if (gameLengthInRounds < 1) {
-        console.log(`Invalid number of rounds: ${gameLengthInRounds}`)
+export function start (endConditionParameter = END_CONDITION.FirstTo, endpointParameter = 5) {
+    if (endpoint < 1) {
+        console.log(`Invalid endpoint: ${endpoint}`)
         return;
     }
-    console.log(`Starting game with length of ${gameLengthInRounds} rounds`);
+    endCondition = endConditionParameter;
+    endpoint = endpointParameter;
+    currentRound = 1;
+
+    console.log(`Starting game. ${endCondition.asString} ${endpoint} ${endCondition === END_CONDITION.BestOf ? "rounds" : "wins"}`);
     gameState = GAME_STATE.Started;
-    numRounds = gameLengthInRounds;
 }
 
 export function end () {
     gameState = GAME_STATE.Dormant;
 }
 
+export function meetsEndCondition () {
+    console.log(`Checking end condition: ${endCondition.asString}. Endpoint is ${endpoint}.`)
+    switch (endCondition) {
+        case END_CONDITION.BestOf:
+            return currentRound > endpoint;
+        case END_CONDITION.FirstTo:
+            return (score.playerScore >= endpoint) || (score.computerScore >= endpoint);
+    }
+}
 
 
 /* Private Methods */

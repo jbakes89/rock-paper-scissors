@@ -20,12 +20,10 @@ function pressRpsButton (event) {
 }
 
 function playRound (buttonId) {
-    model.incrementRound();
     console.log(`Starting round ${model.currentRound} (${model.numRounds - model.currentRound} rounds left)`);
-    let roundResult = model.processInput(buttonId);
-    displayRoundResult(roundResult);
+    updateRoundResult(model.playRoundWithInput(buttonId));
 
-    if (model.currentRound >= model.numRounds) {
+    if (model.meetsEndCondition()) {
         console.log(`Game over.`);
         displayGameResult();
         model.end();
@@ -33,7 +31,7 @@ function playRound (buttonId) {
 }
 
 /* Helper Functions */
-function displayRoundResult (result) {
+function updateRoundResult (result) {
     console.log(`You ${result}`);
     console.log(`The score is Player ${model.score.playerScore} - ${model.score.computerScore} CPU`);
 }
