@@ -14,12 +14,28 @@
                 <button class="play-button">Play</button>
             </nav>
             <main>
-                <button class="rps-option" id="rock">Rock</button>
-                <button class="rps-option" id="paper">Paper</button>
-                <button class="rps-option" id="scissors">Scissors</button>
+                <div class="game-buttons">
+                    <button class="rps-option" id="rock">Rock</button>
+                    <button class="rps-option" id="paper">Paper</button>
+                    <button class="rps-option" id="scissors">Scissors</button>
+                </div>
+                <div class="menu-container">
+                    <button class="menu-button" id="restart-button">Restart</button>
+                    <form class="menu-option" id="game-length-selector">
+                        <fieldset>
+                            <legend>Game length:</legend>
+                            <select name="end-condition-selector" id="end-condition-selector">
+                                <option value="first-to">First to</option>
+                                <option value="best-of">Best of</option>
+                            </select>
+                            <input type="number" id="endpoint-input" name="endpoint-input" min="1" max="10" value="5">
+                            <span id="endpoint-counter"> wins.</span>
+                        </fieldset>
+                    </form>
+                </div>
             </main>
         </div>
         
-        <script src="rps-controller.js" type="module" defer></script>
+        <script src="main.js" type="module" defer></script>
     </body>
 </html>

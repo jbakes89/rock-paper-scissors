@@ -25,9 +25,6 @@ In this update, instead of running the game in the console, we will had a GUI us
 
 This is part of the **DOM Manipulation** lesson in the Odin Project Foundations course.
 
-### TODO (updated Feb 4th, 2021)
-- Implement Model and Controller as classes
-- Add a 'modules' directory and move top-level code into main.js
-- Restart button
-- Option to set game length
+### TODO (updated Feb 17th, 2021)
+- Show status messages in page rather than console
 - Visual presentation
