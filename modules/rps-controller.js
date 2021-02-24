@@ -1,29 +1,32 @@
 /* Imports */
 import { RPSGame, END_CONDITION } from '/modules/rps-model.js';
+import { RPSViewController } from '/modules/rps-view-controller.js';
 
 export class RPSController {
     /* Private Properties */
     #game;
     #endCondition;
     #endpoint;
+    #viewController;
 
     /* Init */
     constructor() {
-        this.#bindUIElements()
+        this.#viewController = new RPSViewController();
+        this.#bindHTML()
     }
 
 
     /* UI Actions */
-    pressPlay(event) {
-        const nav = event.target.parentElement;
-        nav.classList.add('fade-out');
+    pressStart(event) {
+        const nav = document.querySelector(".js-start-screen");
+        nav.classList.add('is-faded-out');
     
         this.#startGame();
     }
     
     pressRpsButton(event) {
         const pressedButton = event.target;
-        const buttonId = pressedButton.id;
+        const buttonId = pressedButton.dataset.choice;
     
         if (this.#game.isStarted()) {
             this.#playRound(capitalize(buttonId));
@@ -49,6 +52,8 @@ export class RPSController {
         const endpointInput = event.target;
         this.#endpoint = endpointInput.value;
 
+        this.#viewController.updateEndpointCounter(this.#endpoint);
+
         console.log(`Endpoint has been set to ${this.#endpoint}. Restarting...`);
         this.#startGame()
     }
@@ -56,7 +61,7 @@ export class RPSController {
     
     /* Private Core Methods */
     #startGame() {
-        this.#game = new RPSGame(this.#endCondition, this.#endpoint)
+        this.#game = new RPSGame(this.#endCondition, this.#endpoint);
     }
 
     #playRound(buttonId) {
@@ -93,39 +98,25 @@ export class RPSController {
         }[value];
     }
 
-    #updateEndpointCounter() {
-        const endpointCounterSpan = document.getElementById("endpoint-counter");
-        switch (this.#endCondition) {
-            case END_CONDITION.FirstTo:
-                endpointCounterSpan.textContent = " wins.";
-                break;
-            case END_CONDITION.BestOf:
-                endpointCounterSpan.textContent = " rounds.";
-                break;
-            default:
-                console.log(`Invalid end condition: ${this.#endCondition}`);
-        }
-    }
-
-    #bindUIElements() {
+    #bindHTML() {
         const controller = this;
 
-        const playButton = document.querySelector("button.play-button");
-        playButton.addEventListener("click", (e) => {controller.pressPlay(e)});
+        const startButton = document.querySelector(".js-start-button");
+        startButton.addEventListener("click", (e) => {controller.pressStart(e)});
 
-        const rpsButtons = document.querySelectorAll("button.rps-option");
+        const rpsButtons = document.querySelectorAll(".js-game-button");
         rpsButtons.forEach((button) => {
             button.addEventListener("click", (e) => {controller.pressRpsButton(e)});
         });
 
-        const restartButton = document.getElementById("restart-button");
+        const restartButton = document.querySelector(".js-restart-button");
         restartButton.addEventListener("click", (e) => {controller.pressRestart(e)});
 
-        const endConditionSelector = document.getElementById("end-condition-selector");
+        const endConditionSelector = document.querySelector(".js-end-condition-selector");
         this.#endCondition = this.#getEndConditionFromHTML(endConditionSelector.value);
         endConditionSelector.addEventListener("change", (e) => {controller.changeEndCondition(e)});
 
-        const endpointInput = document.getElementById("endpoint-input");
+        const endpointInput = document.querySelector(".js-endpoint-input");
         this.#endpoint = endpointInput.value;
         endpointInput.addEventListener("change", (e) => {controller.changeEndpoint(e)});
     }

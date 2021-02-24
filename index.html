@@ -9,30 +9,34 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="page-container">
-            <nav>
-                <button class="play-button">Play</button>
+        <div class="l-page-container">
+            <nav class="l-start js-start-screen">
+                <button class="c-start-button js-start-button">Start</button>
             </nav>
-            <main>
-                <div class="game-buttons">
-                    <button class="rps-option" id="rock">Rock</button>
-                    <button class="rps-option" id="paper">Paper</button>
-                    <button class="rps-option" id="scissors">Scissors</button>
+            <main class="c-app">
+                <div class="c-game">
+                    <div class="c-game__choices">
+                        <button class="c-game__button js-game-button" data-choice="rock">Rock</button>
+                        <button class="c-game__button js-game-button" data-choice="paper">Paper</button>
+                        <button class="c-game__button js-game-button" data-choice="scissors">Scissors</button>
+                    </div>
+                    <div class="c-game__status">
+                        <p class="c-game__score">Player 0-0 CPU</p>
+                        <p class="c-game__commentary">Your move. Choose a play...</p>
+                    </div>
                 </div>
-                <div class="menu-container">
-                    <button class="menu-button" id="restart-button">Restart</button>
-                    <form class="menu-option" id="game-length-selector">
-                        <fieldset>
-                            <legend>Game length:</legend>
-                            <select name="end-condition-selector" id="end-condition-selector">
-                                <option value="first-to">First to</option>
-                                <option value="best-of">Best of</option>
-                            </select>
-                            <input type="number" id="endpoint-input" name="endpoint-input" min="1" max="10" value="5">
-                            <span id="endpoint-counter"> wins.</span>
-                        </fieldset>
+                <form class="c-menu">
+                    <button class="c-menu__restart-button js-restart-button">Restart</button>
+                    <form class="c-menu__options">
+                        <span class="c-menu__text">Game length:</span>
+                        <select class="c-menu__end-condition js-end-condition-selector" name="menu__end-condition">
+                            <option value="first-to">First to</option>
+                            <option value="best-of">Best of</option>
+                        </select>
+                        <input class="c-menu__endpoint js-endpoint-input" name="menu__endpoint" type="number" min="1" max="10" value="5">
+                        <span class="c-menu__text js-endpoint-counter"> wins.</span>
                     </form>
-                </div>
+                </form>
             </main>
         </div>
         
