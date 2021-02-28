@@ -42,7 +42,7 @@ export class RPSController {
         const endConditionSelector = event.target;
         this.#endCondition = this.#getEndConditionFromHTML(endConditionSelector.value);
 
-        this.#updateEndpointCounter();
+        this.#viewController.updateEndpointCounter();
 
         console.log(`End condition has been set to ${this.#endCondition.asString}. Restarting...`);
         this.#startGame();
@@ -77,6 +77,8 @@ export class RPSController {
 
     /* Private Helper Methods */
     #updateRoundResult(result) {
+        this.#viewController.updateScore(this.#game.score.playerScore, this.#game.score.computerScore);
+        this.#viewController.addCommentary(`You ${result}`);
         console.log(`You ${result}`);
         console.log(`The score is Player ${this.#game.score.playerScore} - ${this.#game.score.computerScore} CPU`);
     }

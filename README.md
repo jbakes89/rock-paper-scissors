@@ -29,6 +29,13 @@ This is part of the **DOM Manipulation** lesson in the Odin Project Foundations 
 I made a bit of a mess of CSS selectors trying to implement BEM. I know these aren't being used properly at the moment, but I got a bit ahead of myself trying to learn best practices, and I'm at risk of going to far down the rabbit hole and spending too much time on things that maybe aren't so important at this stage of my learning.\
 TLDR; Don't expect names to make as much sense as implied by their superficial structure.
 
-### TODO (updated Feb 17th, 2021)
-- Show status messages in page rather than console
+### TODO (updated Feb 28th, 2021)
+- Add more information to commentary (e.g., round number, player and computer choices)
 - Visual presentation
+    - Put commentary in a scroll box (only show last 2/3 lines)
+    - Make/find icons for 'rock', 'paper', 'scissors' options
+    - Macrostructure: RPS options in a circle, score in the middle, commentary below RPS options, menu below commentary?
+    - Overall fonts, colours, etc.
+- Extras
+    - Enable keyboard input ('R', 'P', 'S' buttons)
+    - Flair (animations, sound effects, etc.) - DON'T OVERCOMPLICATE!

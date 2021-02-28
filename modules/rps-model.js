@@ -58,11 +58,10 @@ export class RPSGame {
                 default:
                     console.log(`Invalid player input: ${playerInput}`);
             }
+            this.#updateScore(result);
         }
     
-        this.#currentRound += 1;
-    
-        this.#updateScore(result);
+        this.#currentRound += 1;   
         return result;
     }
 
