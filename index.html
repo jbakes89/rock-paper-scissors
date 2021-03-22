@@ -13,23 +13,10 @@
             <nav class="l-start js-start-screen">
                 <button class="c-start-button js-start-button">Start</button>
             </nav>
-            <main class="c-app">
-                <div class="c-game">
-                    <div class="c-game__choices">
-                        <button class="c-game__button js-game-button" data-choice="rock">Rock</button>
-                        <button class="c-game__button js-game-button" data-choice="paper">Paper</button>
-                        <button class="c-game__button js-game-button" data-choice="scissors">Scissors</button>
-                    </div>
-                    <div class="c-game__status">
-                        <p class="c-game__score js-game-score">Player 0-0 CPU</p>
-                        <ol class="c-game__commentary-list js-commentary-list">
-                            <li class="c-game__commentary-line js-commentary-line">Your move. Choose a play...</li>
-                        </ol>
-                    </div>
-                </div>
-                <form class="c-menu">
+            <main class="l-app">
+                <nav class="l-side-menu">
                     <button class="c-menu__restart-button js-restart-button">Restart</button>
-                    <form class="c-menu__options">
+                    <form class="l-menu__options js-options-form">
                         <span class="c-menu__text">Game length:</span>
                         <select class="c-menu__end-condition js-end-condition-selector" name="menu__end-condition">
                             <option value="first-to">First to</option>
@@ -38,7 +25,20 @@
                         <input class="c-menu__endpoint js-endpoint-input" name="menu__endpoint" type="number" min="1" max="10" value="5">
                         <span class="c-menu__text js-endpoint-counter"> wins.</span>
                     </form>
-                </form>
+                    <div class="l-menu__status">
+                        <ol class="l-status__commentary-list js-commentary-list">
+                            <li class="c-status__commentary-line js-commentary-line">Your move. Choose a play...</li>
+                        </ol>
+                    </div>
+                </nav>
+                <div class="l-game-container js-game-container">
+                    <p class="c-game__score js-game-score">Player 0 : 0 CPU</p>
+                    <div class="l-game__choices js-button-container">
+                        <button class="c-game__button js-game-button" data-choice="rock">Rock</button>
+                        <button class="c-game__button js-game-button" data-choice="paper">Paper</button>
+                        <button class="c-game__button js-game-button" data-choice="scissors">Scissors</button>
+                    </div>
+                </div>
             </main>
         </div>
         

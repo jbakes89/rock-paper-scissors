@@ -3,6 +3,9 @@ export class RPSViewController {
     /* Properties */
     #endpointCounterLabel;
     #gameScoreElement;
+    #gameContainer;
+    #buttonContainer;
+    #gameButtons = [];
     #commentaryLineClasses = [];
 
     #commentaryList
@@ -16,6 +19,11 @@ export class RPSViewController {
             return `${this.playerLabel} ${this.playerScore} : ${this.computerScore} ${this.computerLabel}`;
         }
     };
+
+    #BUTTON_LAYOUT = {
+        relativeDiameter: 0.66, // as % of shortest axis of game panel
+        startingPositioninDegrees: 0
+    }
 
     /* Init */
     constructor() {
@@ -53,7 +61,39 @@ export class RPSViewController {
         }
     }
 
+    resizeWindow(event) {
+        this.#repositionButtons();
+    }
+
+
+    #repositionButtons() {
+        const minorAxisLength = Math.min(this.#gameContainer.offsetHeight, this.#gameContainer.offsetWidth);
+        const buttonContainerWidth = this.#BUTTON_LAYOUT.relativeDiameter * minorAxisLength;
+
+        this.#buttonContainer.style.height = `${buttonContainerWidth}px`;
+        this.#buttonContainer.style.width = `${buttonContainerWidth}px`;
+
+        let centerOfButtonContainer, buttonRadius;
+        centerOfButtonContainer = buttonRadius = (buttonContainerWidth * 0.5);
+
+        const buttonIntervalInDegrees = 360/this.#gameButtons.length;
+
+        for (let i = 0; i<this.#gameButtons.length; i++) {
+            const button = this.#gameButtons[i];
+
+            const angleInRadians = (this.#BUTTON_LAYOUT.startingPositioninDegrees + (i * buttonIntervalInDegrees)) * Math.PI/180;
+
+            const x = centerOfButtonContainer + (Math.sin(angleInRadians) * buttonRadius) - (button.offsetWidth * 0.5);
+            const y = centerOfButtonContainer - (Math.cos(angleInRadians) * buttonRadius) - (button.offsetHeight * 0.5);
+
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+    }
+
     #bindUI() {
+        const viewController = this;
+
         this.#endpointCounterLabel = document.querySelector(".js-endpoint-counter");
         
         this.#gameScoreElement = document.querySelector(".js-game-score");
@@ -63,5 +103,13 @@ export class RPSViewController {
         if (this.#commentaryList.children.length > 0) {
             this.#commentaryLineClasses = this.#commentaryList.children[0].classList;
         }
+
+        this.#gameButtons = document.querySelectorAll(".js-game-button");
+        
+        this.#gameContainer = document.querySelector(".js-game-container");
+        this.#buttonContainer = document.querySelector(".js-button-container");
+
+        window.addEventListener("resize", (e) => viewController.resizeWindow(e));
+        this.resizeWindow();
     }
 }

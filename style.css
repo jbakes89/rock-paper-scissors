@@ -1,3 +1,22 @@
+/* Remove scroll arrows from number-type input boxes */
+input[type="number"] {
+    -webkit-appearance: textfield;
+       -moz-appearance: textfield;
+            appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+}
+
+
+/* Global variables */
+:root {
+    --light-shadow: #f1eded;
+
+}
+
+
 body {
     width: 100%;
     height: 100%;
@@ -26,7 +45,16 @@ body {
     cursor: pointer;
 }
 
-.c-app {
+.l-page-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: skyblue;
+    /* border: 2px solid black; */
+}
+
+.l-app {
+    display: flex;
     background-color: whitesmoke;
     height: 100%;
     width: 100%;
@@ -35,10 +63,70 @@ body {
     /* border: 2px solid red; */
 }
 
-.l-page-container {
+.l-side-menu {
     display: flex;
-    height: 100vh;
-    width: 100vw;
-    background-color: skyblue;
-    /* border: 2px solid black; */
+    flex-direction: column;
+    flex: 0 0 auto;
+    background-color: lightseagreen;
+}
+
+.l-game-container {
+    flex: 1 1 75%;
+    min-width: 350px;
+    background-color: lightsalmon;
+    position: relative;
+}
+
+.c-menu__restart-button {
+    padding: 10px;
+    border: none;
+    font-size: 32px;
+    font-family: 'Courier New', Courier, monospace;
+    flex: 0 0 auto;
+}
+
+.c-menu__restart-button:hover {
+    background-color: var(--light-shadow);
+}
+
+.l-menu__options {
+    padding: 15px;
+}
+
+.c-menu__end-condition {
+    background-color: rgba(0,0,0,0);
+}
+
+.c-menu__endpoint {
+    background-color: rgba(0,0,0,0);
+    width: 25px;
+}
+
+.l-menu__status {
+    background-color: palegoldenrod;
+    flex-grow: 1;
+}
+
+.c-game__score {
+    margin: auto;
+    position: absolute;
+    width: fit-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.l-game__choices {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid black;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: lightsteelblue; */
+}
+
+.c-game__button {
+    position: absolute;
+    z-index: 1;
 }

@@ -84,12 +84,13 @@ export class RPSController {
     }
     
     #displayGameResult() {
+        this.#viewController.addCommentary('Game over.');
         if (this.#game.score.playerScore > this.#game.score.computerScore) {
-            console.log(`Congratulations, you WON!`);
+            this.#viewController.addCommentary(`Congratulations, you WON!`);
         } else if (this.#game.score.playerScore < this.#game.score.computerScore) {
-            console.log(`Comiserations, you LOST.`);
+            this.#viewController.addCommentary(`Comiserations, you LOST.`);
         } else {
-            console.log(`Oh, a DRAW... How boring.`);
+            this.#viewController.addCommentary(`Oh, a DRAW... How boring.`);
         }
     }
 
@@ -121,6 +122,10 @@ export class RPSController {
         const endpointInput = document.querySelector(".js-endpoint-input");
         this.#endpoint = endpointInput.value;
         endpointInput.addEventListener("change", (e) => {controller.changeEndpoint(e)});
+
+        // Prevent form submitting on 'Enter' press
+        const optionsForm = document.querySelector(".js-options-form");
+        optionsForm.addEventListener("submit", (e) => {e.preventDefault()});
     }
 }
 
