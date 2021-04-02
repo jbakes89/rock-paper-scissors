@@ -4,7 +4,7 @@ export const END_CONDITION = {
     "BestOf": {asString: "Best of"},
     "FirstTo": {asString: "First to"}
 };
-const ROUND_OUTCOME = {"Draw": "Draw", "Win": "Win", "Lose": "Lose"};
+export const ROUND_OUTCOME = {"Draw": "Draw", "Win": "Win", "Lose": "Lose"};
 
 
 export class RPSGame {
@@ -12,7 +12,7 @@ export class RPSGame {
     score = {"playerScore": 0, "computerScore": 0};
 
     /* Private Properties */
-    #currentRound;
+    currentRound;
     #gameState;
     #endCondition;
     #endpoint;
@@ -26,7 +26,7 @@ export class RPSGame {
         }
         this.#endCondition = endCondition;
         this.#endpoint = endpoint;
-        this.#currentRound = 1;
+        this.currentRound = 1;
     
         console.log(`Starting game. ${this.#endCondition.asString} ${this.#endpoint} ${this.#endCondition === END_CONDITION.BestOf ? "rounds" : "wins"}`);
         this.#gameState = GAME_STATE.Started;
@@ -35,40 +35,45 @@ export class RPSGame {
 
     /* Public Core Methods */
     playRoundWithInput(playerInput) {
-        console.log(`Starting round ${this.#currentRound}`);
+        console.log(`Starting round ${this.currentRound}`);
 
         let computerInput = this.#getComputerInput();
         console.log(`${playerInput} vs. ${computerInput}`);
     
         // Initialize results variable (default = draw)
-        let result = ROUND_OUTCOME.Draw;
+        let result = {
+            roundNumber: this.currentRound,
+            playerInput: playerInput,
+            computerInput: computerInput,
+            outcome: ROUND_OUTCOME.Draw
+        }
     
         // If not a draw
         if (playerInput != computerInput) {
             switch (playerInput) {
                 case "Rock":
-                    result = computerInput === "Scissors" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
+                    result.outcome = computerInput === "Scissors" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
                     break;
                 case "Paper":
-                    result = computerInput === "Rock" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
+                    result.outcome = computerInput === "Rock" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
                     break;
                 case "Scissors":
-                    result = computerInput === "Paper" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
+                    result.outcome = computerInput === "Paper" ? ROUND_OUTCOME.Win : ROUND_OUTCOME.Lose;
                     break;
                 default:
                     console.log(`Invalid player input: ${playerInput}`);
             }
-            this.#updateScore(result);
+            this.#updateScore(result.outcome);
         }
     
-        this.#currentRound += 1;   
+        this.currentRound += 1;   
         return result;
     }
 
 
     /* Public Helper Methods */
     incrementRound() {
-        this.#currentRound += 1;
+        this.currentRound += 1;
     }
     
     isStarted() {
@@ -83,7 +88,7 @@ export class RPSGame {
         console.log(`Checking end condition: ${this.#endCondition.asString}. Endpoint is ${this.#endpoint}.`)
         switch (this.#endCondition) {
             case END_CONDITION.BestOf:
-                return this.#currentRound > this.#endpoint;
+                return this.currentRound > this.#endpoint;
             case END_CONDITION.FirstTo:
                 return (this.score.playerScore >= this.#endpoint) || (this.score.computerScore >= this.#endpoint);
         }

@@ -32,7 +32,6 @@ body {
     z-index: 1;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid blue; */
 }
 
 .is-faded-out {
@@ -50,7 +49,6 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: skyblue;
-    /* border: 2px solid black; */
 }
 
 .l-app {
@@ -58,15 +56,16 @@ body {
     background-color: whitesmoke;
     height: 100%;
     width: 100%;
-    margin-left: -100%;
-    z-index: 0;
-    /* border: 2px solid red; */
+    /* margin-left: -100%; */
+    /* z-index: 0; */
 }
 
 .l-side-menu {
     display: flex;
     flex-direction: column;
+    text-align: center;
     flex: 0 0 auto;
+    min-width: 400px;
     background-color: lightseagreen;
 }
 
@@ -123,10 +122,22 @@ body {
     border: 1px solid black;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    /* background-color: lightsteelblue; */
 }
 
 .c-game__button {
     position: absolute;
     z-index: 1;
+}
+
+.l-status__commentary-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.c-status__commentary-line {
+    color: gray;
+}
+
+.c-status__commentary-line:last-of-type {
+    color: black;
 }

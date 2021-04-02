@@ -31,7 +31,6 @@ export class RPSViewController {
     }
 
     updateEndpointCounter(endCondition) {
-        // Consider making ViewController, binding endpointCounter as property.
         switch (endCondition) {
             case END_CONDITION.FirstTo:
                 this.#endpointCounterLabel.textContent = " wins.";
@@ -58,6 +57,12 @@ export class RPSViewController {
             this.#commentaryList.appendChild(newCommentaryElement)
         } else {
             this.#commentaryList.insertBefore(newCommentaryElement, this.#commentaryList.children[line])
+        }
+    }
+
+    resetCommentary() {
+        while (this.#commentaryList.children.length > 1) {
+            this.#commentaryList.removeChild(this.#commentaryList.lastChild);
         }
     }
 

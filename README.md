@@ -29,15 +29,12 @@ This is part of the **DOM Manipulation** lesson in the Odin Project Foundations 
 I made a bit of a mess of CSS selectors trying to implement BEM. I know these aren't being used properly at the moment, but I got a bit ahead of myself trying to learn best practices, and I'm at risk of going to far down the rabbit hole and spending too much time on things that maybe aren't so important at this stage of my learning.\
 TLDR; Don't expect names to make as much sense as implied by their superficial structure.
 
-### TODO (updated Mar 23rd, 2021)
-- Reset score label on game restart
-- Add more information to commentary (e.g., round number, player and computer choices)
+### TODO (updated Apr 2nd, 2021)
 - Visual presentation
     - Put commentary in a scroll box (only show last 2/3 lines)??
-    - And/or show older commentary items in a lighter colour
+    - Put commentary, restart button (and options?) all inside the circle of choices
     - Make/find icons for 'rock', 'paper', 'scissors' options
     - Overall fonts, colours, hover styles, etc.
-    - Maybe just get rid of start screen
 - Extras
     - Enable keyboard input ('R', 'P', 'S' buttons)
     - Flair (animations, sound effects, etc.) - DON'T OVERCOMPLICATE!

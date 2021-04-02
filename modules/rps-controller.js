@@ -1,5 +1,5 @@
 /* Imports */
-import { RPSGame, END_CONDITION } from '/modules/rps-model.js';
+import { RPSGame, END_CONDITION, ROUND_OUTCOME } from '/modules/rps-model.js';
 import { RPSViewController } from '/modules/rps-view-controller.js';
 
 export class RPSController {
@@ -13,16 +13,17 @@ export class RPSController {
     constructor() {
         this.#viewController = new RPSViewController();
         this.#bindHTML()
+        this.#startGame();
     }
 
 
     /* UI Actions */
-    pressStart(event) {
-        const nav = document.querySelector(".js-start-screen");
-        nav.classList.add('is-faded-out');
+    // pressStart(event) {
+    //     const nav = document.querySelector(".js-start-screen");
+    //     nav.classList.add('is-faded-out');
     
-        this.#startGame();
-    }
+    //     this.#startGame();
+    // }
     
     pressRpsButton(event) {
         const pressedButton = event.target;
@@ -34,8 +35,8 @@ export class RPSController {
     }
 
     pressRestart(event) {
-        console.log("Restarting...")
-        this.#startGame()
+        console.log("Restarting...");
+        this.#startGame();
     }
 
     changeEndCondition(event) {
@@ -62,6 +63,8 @@ export class RPSController {
     /* Private Core Methods */
     #startGame() {
         this.#game = new RPSGame(this.#endCondition, this.#endpoint);
+        this.#viewController.resetCommentary();
+        this.#viewController.updateScore(this.#game.score.playerScore, this.#game.score.computerScore);
     }
 
     #playRound(buttonId) {
@@ -78,7 +81,14 @@ export class RPSController {
     /* Private Helper Methods */
     #updateRoundResult(result) {
         this.#viewController.updateScore(this.#game.score.playerScore, this.#game.score.computerScore);
-        this.#viewController.addCommentary(`You ${result}`);
+        let commentaryString = `Round #${result.roundNumber}: Your ${result.playerInput} ${
+            {
+                [ROUND_OUTCOME.Win]: `beats`,
+                [ROUND_OUTCOME.Draw]: `ties with`,
+                [ROUND_OUTCOME.Lose]: `loses to`
+            }[result.outcome]
+        } computer's ${result.computerInput}`;
+        this.#viewController.addCommentary(commentaryString);
         console.log(`You ${result}`);
         console.log(`The score is Player ${this.#game.score.playerScore} - ${this.#game.score.computerScore} CPU`);
     }
@@ -104,8 +114,8 @@ export class RPSController {
     #bindHTML() {
         const controller = this;
 
-        const startButton = document.querySelector(".js-start-button");
-        startButton.addEventListener("click", (e) => {controller.pressStart(e)});
+        // const startButton = document.querySelector(".js-start-button");
+        // startButton.addEventListener("click", (e) => {controller.pressStart(e)});
 
         const rpsButtons = document.querySelectorAll(".js-game-button");
         rpsButtons.forEach((button) => {
