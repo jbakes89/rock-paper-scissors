@@ -43,7 +43,7 @@ export class RPSController {
         const endConditionSelector = event.target;
         this.#endCondition = this.#getEndConditionFromHTML(endConditionSelector.value);
 
-        this.#viewController.updateEndpointCounter();
+        this.#viewController.updateEndpointCounter(this.#endCondition);
 
         console.log(`End condition has been set to ${this.#endCondition.asString}. Restarting...`);
         this.#startGame();
@@ -53,7 +53,7 @@ export class RPSController {
         const endpointInput = event.target;
         this.#endpoint = endpointInput.value;
 
-        this.#viewController.updateEndpointCounter(this.#endpoint);
+        // this.#viewController.updateEndpointCounter(this.#endpoint);
 
         console.log(`Endpoint has been set to ${this.#endpoint}. Restarting...`);
         this.#startGame()
@@ -81,7 +81,7 @@ export class RPSController {
     /* Private Helper Methods */
     #updateRoundResult(result) {
         this.#viewController.updateScore(this.#game.score.playerScore, this.#game.score.computerScore);
-        let commentaryString = `Round #${result.roundNumber}: Your ${result.playerInput} ${
+        let commentaryString = `R${result.roundNumber}: Your ${result.playerInput} ${
             {
                 [ROUND_OUTCOME.Win]: `beats`,
                 [ROUND_OUTCOME.Draw]: `ties with`,
