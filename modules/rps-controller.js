@@ -91,6 +91,7 @@ export class RPSController {
         this.#viewController.addCommentary(commentaryString);
         console.log(`You ${result}`);
         console.log(`The score is Player ${this.#game.score.playerScore} - ${this.#game.score.computerScore} CPU`);
+        this.#viewController.playOutcomeAnimation(result.outcome.toLowerCase());
     }
     
     #displayGameResult() {

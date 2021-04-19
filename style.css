@@ -10,12 +10,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
+
 /* Global variables */
 :root {
     --bg-color: white;
     --win-color: rgba(136, 235, 162, 1);
     --lose-color: rgba(239, 113, 113, 1);
     --outline-color: rgba(60, 65, 72, 1);
+    /* --outline-color: gold; */
     --dark-shadow-color: rgba(225, 232, 240, 1);
     --medium-shadow-color: rgba(242, 245, 249, 1);
     --light-shadow-color: rgba(252, 254, 255, 1);
@@ -71,6 +73,57 @@ button:active {
 
 
 /* Central circle */
+@keyframes winPulse {
+    0% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+
+    25% {
+        border-color: var(--win-color);
+        box-shadow: inset 0 0 20px 20px var(--win-color);
+    }
+    
+    100% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+}
+
+@keyframes losePulse {
+    0% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+
+    25% {
+        border-color: var(--lose-color);
+        box-shadow: inset 0 0 20px 20px var(--lose-color);
+    }
+    
+    100% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+}
+
+@keyframes drawPulse {
+    0% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+
+    25% {
+        border-color: gray;
+        box-shadow: inset 0 0 20px 20px gray;
+    }
+    
+    100% {
+        border: 1px solid var(--outline-color);
+        box-shadow: none;
+    }
+}
+
 .l-game__circular-container {
     position: absolute;
     left: 50%;
@@ -78,6 +131,19 @@ button:active {
     border: 1px solid var(--outline-color);
     border-radius: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.win-round {
+    animation: winPulse 1000ms;
+}
+
+.lose-round {
+    animation: losePulse 1000ms;
+}
+
+.draw-round {
+    animation: drawPulse 1000ms;
 }
 
 /* Game buttons */
@@ -86,8 +152,10 @@ button:active {
 
 .c-game__button {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
+    border-radius: 50%;
 }
+
 
 /* Status box */
 .l-game__status-container {
@@ -100,6 +168,7 @@ button:active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 /* Score */
@@ -161,6 +230,7 @@ button:active {
     transform: translate(-100%, 0%);
     display: flex;
     flex-direction: column;
+    z-index: 3;
 }
 
 .c-menu__restart-button {

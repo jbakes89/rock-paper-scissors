@@ -89,6 +89,14 @@ export class RPSViewController {
         }
     }
 
+    playOutcomeAnimation(outcome) {
+        for (const cl of ["win-round", "lose-round", "draw-round"]) {
+            this.#buttonContainer.classList.remove(cl);
+        }
+        void this.#buttonContainer.offsetWidth;
+        this.#buttonContainer.classList.add(`${outcome}-round`);
+    }
+
     #repositionButtons() {
         const minorAxisLength = Math.min(this.#gameContainer.offsetHeight, this.#gameContainer.offsetWidth);
         const buttonContainerWidth = this.#BUTTON_LAYOUT.relativeDiameter * minorAxisLength;
