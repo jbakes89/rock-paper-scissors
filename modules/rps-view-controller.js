@@ -12,9 +12,8 @@ export class RPSViewController {
     #settingsForm;
     #commentaryToggle;
     #settingsToggle;
-    #commentaryLineClasses = [];
 
-    #commentaryList
+    #commentaryList;
 
     #gameScore = {
         playerLabel: "Player",
@@ -89,12 +88,20 @@ export class RPSViewController {
         }
     }
 
-    playOutcomeAnimation(outcome) {
-        for (const cl of ["win-round", "lose-round", "draw-round"]) {
-            this.#buttonContainer.classList.remove(cl);
-        }
-        void this.#buttonContainer.offsetWidth;
-        this.#buttonContainer.classList.add(`${outcome}-round`);
+    playRoundOutcomeAnimation(outcome) {
+        this.#buttonContainer.removeAttribute("data-round_outcome");
+        void this.#buttonContainer.offsetWidth; // Trigger redraw
+        this.#buttonContainer.setAttribute("data-round_outcome", outcome);
+    }
+    
+    playGameOutcomeAnimation(outcome) {
+        // Remove round_outcome attribute to prevent round_outcome animation replaying on game restart.
+        this.#buttonContainer.removeAttribute("data-round_outcome");
+        this.#buttonContainer.setAttribute("data-game_outcome", outcome);
+    }
+
+    clearGameOutcomeAnimation() {
+        this.#buttonContainer.removeAttribute('data-game_outcome');
     }
 
     #repositionButtons() {
@@ -144,11 +151,6 @@ export class RPSViewController {
         this.updateScore(0, 0);
         
         this.#commentaryList = document.querySelector(".js-commentary-list");
-        if (this.#commentaryList.children.length > 0) {
-            this.#commentaryLineClasses = this.#commentaryList.children[0].classList;
-        }
-
-        // this.#commentaryList = document.querySelector(".js-commentary-table");
 
         this.#gameButtons = document.querySelectorAll(".js-game-button");
         

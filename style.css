@@ -13,14 +13,23 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Global variables */
 :root {
-    --bg-color: white;
+    /* --bg-color: white;
     --win-color: rgba(136, 235, 162, 1);
     --lose-color: rgba(239, 113, 113, 1);
-    --outline-color: rgba(60, 65, 72, 1);
+    --outline-color: rgba(60, 65, 72, 1); */
     /* --outline-color: gold; */
-    --dark-shadow-color: rgba(225, 232, 240, 1);
+    /* --dark-shadow-color: rgba(225, 232, 240, 1);
     --medium-shadow-color: rgba(242, 245, 249, 1);
-    --light-shadow-color: rgba(252, 254, 255, 1);
+    --light-shadow-color: rgba(252, 254, 255, 1); */
+
+    --bg-color: rgba(60, 65, 72, 1);
+    --win-color: rgba(136, 235, 162, 1);
+    --lose-color: rgba(239, 113, 113, 1);
+    --outline-color: white;
+    /* --outline-color: gold; */
+    --dark-shadow-color: rgb(148, 156, 172);
+    --medium-shadow-color: rgb(119, 127, 141);
+    --light-shadow-color: rgb(78, 83, 92);
 }
 
 
@@ -35,6 +44,8 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
+    background-color: var(--bg-color);
+    font-family: 'Courier New', Courier, monospace;
 }
 
 button {
@@ -43,6 +54,7 @@ button {
     border-width: 1px;
     box-shadow: none;
     border-style: solid;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 button:hover {
@@ -51,7 +63,7 @@ button:hover {
 
 button:active {
     background-color: var(--medium-shadow-color);
-    box-shadow: inset 3px 3px 3px var(--dark-shadow-color);
+    box-shadow: inset 3px 3px 10px 1px var(--dark-shadow-color);
 }
 
 
@@ -73,57 +85,6 @@ button:active {
 
 
 /* Central circle */
-@keyframes winPulse {
-    0% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-
-    25% {
-        border-color: var(--win-color);
-        box-shadow: inset 0 0 20px 20px var(--win-color);
-    }
-    
-    100% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-}
-
-@keyframes losePulse {
-    0% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-
-    25% {
-        border-color: var(--lose-color);
-        box-shadow: inset 0 0 20px 20px var(--lose-color);
-    }
-    
-    100% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-}
-
-@keyframes drawPulse {
-    0% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-
-    25% {
-        border-color: gray;
-        box-shadow: inset 0 0 20px 20px gray;
-    }
-    
-    100% {
-        border: 1px solid var(--outline-color);
-        box-shadow: none;
-    }
-}
-
 .l-game__circular-container {
     position: absolute;
     left: 50%;
@@ -134,16 +95,28 @@ button:active {
     z-index: 2;
 }
 
-.win-round {
-    animation: winPulse 1000ms;
+.l-game__circular-container[data-round_outcome="win"] {
+    animation: winPulse 500ms;
 }
 
-.lose-round {
-    animation: losePulse 1000ms;
+.l-game__circular-container[data-round_outcome="lose"]  {
+    animation: losePulse 500ms;
 }
 
-.draw-round {
-    animation: drawPulse 1000ms;
+.l-game__circular-container[data-round_outcome="draw"]  {
+    animation: drawPulse 500ms;
+}
+
+.l-game__circular-container[data-game_outcome="win"] {
+    animation: winGame 1000ms forwards;
+}
+
+.l-game__circular-container[data-game_outcome="lose"] {
+    animation: loseGame 1000ms forwards;
+}
+
+.l-game__circular-container[data-game_outcome="draw"] {
+    animation: drawGame 1000ms forwards;
 }
 
 /* Game buttons */
@@ -154,6 +127,15 @@ button:active {
     position: absolute;
     z-index: 3;
     border-radius: 50%;
+}
+
+.c-game__button:hover{
+    animation: grow 60ms ease-in forwards;
+}
+
+.c-game__button:active {
+    background-color: var(--medium-shadow-color);
+    box-shadow: inset 0 0 10px 1px var(--dark-shadow-color);
 }
 
 
@@ -173,6 +155,8 @@ button:active {
 
 /* Score */
 .c-status__score {
+    font-size: 26px;
+    background-color: var(--bg-color);
 }
 
 /* Commentary */
@@ -186,6 +170,7 @@ button:active {
     overscroll-behavior-y: contain;
     scroll-snap-type: y mandatory;
     max-height: 150px;
+    background-color: var(--bg-color);
 }
 
 .c-status__commentary-line {
@@ -200,13 +185,14 @@ button:active {
 /* Options form */
 .l-menu__options {
     padding: 15px;
+    /* background-color: var(--bg-color); */
 }
 
 .c-menu__text {
 }
 
 .c-menu__end-condition {
-    background-color: var(--bg-color);
+    background-color: transparent;
 }
 
 .c-menu__end-condition:hover {
@@ -216,6 +202,7 @@ button:active {
 .c-menu__endpoint {
     border-width: 1px;
     width: 25px;
+    background-color: transparent;
 }
 
 .c-menu__endpoint:hover {
@@ -252,17 +239,75 @@ button:active {
 
 .c-options__toggle-button {
     border: none;
+    background-color: var(--medium-shadow-color);
 }
 
 .c-options__toggle-button.--js-toggle-off {
-    background-color: var(--dark-shadow-color);
+    background-color: var(--bg-color);
 }
 
-.c-options__toggle-button.--js-toggle-off:hover {
-    background-color: var(--medium-shadow-color);
+.c-options__toggle-button:hover {
+    background-color: var(--light-shadow-color);
 }
 
-.c-options__toggle-button.--js-toggle-off:active {
-    background-color: var(--medium-shadow-color);
-    box-shadow: inset 3px 3px 3px var(--dark-shadow-color);
+.c-options__toggle-button:active {
+    background-color: var(--light-shadow-color);
+    box-shadow: inset 3px 3px 3px var(--bg-color);
+}
+
+
+/* Animations */
+/*.l-game__circular-container Round Outcomes*/
+@keyframes winPulse {
+    25% {
+        border-color: var(--win-color);
+        box-shadow: inset 0 0 12px 7px var(--win-color);
+    }
+}
+
+@keyframes losePulse {
+    25% {
+        border-color: var(--lose-color);
+        box-shadow: inset 0 0 12px 7px var(--lose-color);
+    }
+}
+
+@keyframes drawPulse {
+    25% {
+        border-color: var(--medium-shadow-color);
+        box-shadow: inset 0 0 12px 7px var(--medium-shadow-color);
+    }
+}
+
+/*.l-game__circular-container Game Outcomes*/
+@keyframes winGame {
+    to {
+        background-color: var(--win-color);
+        border-color: var(--win-color);
+        opacity: 50%;
+    }
+}
+
+@keyframes loseGame {
+    to {
+        background-color: var(--lose-color);
+        border-color: var(--lose-color);
+        opacity: 50%;
+    }
+}
+
+@keyframes drawGame {
+    to {
+        background-color: var(--medium-shadow-color);
+        border-color: var(--medium-shadow-color);
+        opacity: 50%;
+    }
+}
+
+
+/* .c-game__button:hover */
+@keyframes grow {
+    to {
+        transform: scale(1.1);
+    }
 }

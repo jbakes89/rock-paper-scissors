@@ -21,7 +21,7 @@ This was completed as part of the Odin Project Foundations course as an exercise
 ## Adding GUI using Javascript
 starting Jan 19th, 2021
 
-In this update, instead of running the game in the console, we will had a GUI using Javascript to allow the user to play the game in the browser.
+In this update, instead of running the game in the console, we will add a GUI using Javascript to allow the user to play the game in the browser.
 
 This is part of the **DOM Manipulation** lesson in the Odin Project Foundations course.
 
@@ -29,12 +29,12 @@ This is part of the **DOM Manipulation** lesson in the Odin Project Foundations 
 I made a bit of a mess of CSS selectors trying to implement BEM. I know these aren't being used properly at the moment, but I got a bit ahead of myself trying to learn best practices, and I'm at risk of going to far down the rabbit hole and spending too much time on things that maybe aren't so important at this stage of my learning.\
 TLDR; Don't expect names to make as much sense as implied by their superficial structure.
 
-### TODO (updated Apr 16th, 2021)
-- Visual presentation
-    - Make/find icons for 'rock', 'paper', 'scissors' options
-    - Use colours to indicate results of each round/entire game
-    - Overall fonts, colours, hover styles, etc.
-- Extras
-    - Enable keyboard input ('R', 'P', 'S' buttons)
-    - Flair (animations, sound effects, etc.) - DON'T OVERCOMPLICATE!
-    - e.g., animated colour change for button container to show round result
+### Update (28th April, 2021)
+I think this is a good place to stop working on this for now. It's difficult enough to find time for learning Web Development while continuing to work, and so I think I need to move on with the curriculm to continue learning efficiently, even though there are still some things I would want to change to give this a little more polish.
+
+### Things to add/improve
+- Fix commentary scroll box snapping back to last line whenever user tries to scroll (easiest fix would be to implement snapping behavior in JS, but feels like there should be a way to do it with only CSS)
+- Make/find icons for 'rock', 'paper', 'scissors' options
+- Enable keyboard input ('R', 'P', 'S' buttons, etc.)
+- Sound effects???
+- (Short) delay + animation to give the impression of the computer "choosing" an option.

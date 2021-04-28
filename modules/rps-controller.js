@@ -64,6 +64,7 @@ export class RPSController {
     #startGame() {
         this.#game = new RPSGame(this.#endCondition, this.#endpoint);
         this.#viewController.resetCommentary();
+        this.#viewController.clearGameOutcomeAnimation();
         this.#viewController.updateScore(this.#game.score.playerScore, this.#game.score.computerScore);
     }
 
@@ -72,7 +73,9 @@ export class RPSController {
     
         if (this.#game.meetsEndCondition()) {
             console.log(`Game over.`);
-            this.#displayGameResult();
+            const gameOutcome = this.#game.getGameOutcome();
+            this.#displayGameResult(gameOutcome);
+            this.#viewController.playGameOutcomeAnimation(gameOutcome.toLowerCase());
             this.#game.end();
         }
     }
@@ -91,14 +94,14 @@ export class RPSController {
         this.#viewController.addCommentary(commentaryString);
         console.log(`You ${result}`);
         console.log(`The score is Player ${this.#game.score.playerScore} - ${this.#game.score.computerScore} CPU`);
-        this.#viewController.playOutcomeAnimation(result.outcome.toLowerCase());
+        this.#viewController.playRoundOutcomeAnimation(result.outcome.toLowerCase());
     }
     
-    #displayGameResult() {
+    #displayGameResult(gameOutcome) {
         this.#viewController.addCommentary('Game over.');
-        if (this.#game.score.playerScore > this.#game.score.computerScore) {
+        if (gameOutcome == ROUND_OUTCOME.Win) {
             this.#viewController.addCommentary(`Congratulations, you WON!`);
-        } else if (this.#game.score.playerScore < this.#game.score.computerScore) {
+        } else if (gameOutcome == ROUND_OUTCOME.Lose) {
             this.#viewController.addCommentary(`Comiserations, you LOST.`);
         } else {
             this.#viewController.addCommentary(`Oh, a DRAW... How boring.`);

@@ -94,6 +94,16 @@ export class RPSGame {
         }
     }
 
+    getGameOutcome() {
+        if (this.score.playerScore > this.score.computerScore) {
+            return ROUND_OUTCOME.Win;
+        } else if (this.score.playerScore < this.score.computerScore) {
+            return ROUND_OUTCOME.Lose;
+        } else {
+            return ROUND_OUTCOME.Draw;
+        }
+    }
+
     /* Private Methods */
     #getComputerInput() {
         return ["Rock", "Paper", "Scissors"][Math.floor(Math.random() * 3)];
